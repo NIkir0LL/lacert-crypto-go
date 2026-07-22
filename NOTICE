@@ -1,0 +1,10 @@
+lacert-crypto-go
+Copyright (c) 2025 NIkir0LL (https://github.com/NIkir0LL)
+
+Licensed under the Apache License, Version 2.0.
+
+This product depends on third-party libraries obtained via Go modules
+(not included in this repository):
+  - Cloudflare CIRCL (BSD-3-Clause)   github.com/cloudflare/circl
+  - zeebo/blake3 (CC0-1.0)            github.com/zeebo/blake3
+  - golang.org/x/crypto (BSD-3-Clause)
