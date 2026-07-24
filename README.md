@@ -24,7 +24,8 @@ dependencies on the rest of the project** and can be used on its own.
   post-quantum secret (BLAKE3), giving forward secrecy and post-compromise
   security.
 - **Authenticated encryption** — ChaCha20-Poly1305 for the data channel.
-- **Firmware integrity check** — ECDSA P-256 challenge–response.
+- **Firmware integrity check** — challenge–response signed with the device
+  identity key (ECDSA P-256, SLH-DSA or Ed25519, whichever the device uses).
 
 ### Design note
 
@@ -77,7 +78,8 @@ IoT-устройств к корпоративным сетям с посткв�
   постквантовым секретом (BLAKE3), что даёт прямую секретность и восстановление
   стойкости после компрометации.
 - **Аутентифицированное шифрование** — ChaCha20-Poly1305 для канала данных.
-- **Проверка целостности прошивки** — по схеме «запрос-ответ» на ECDSA P-256.
+- **Проверка целостности прошивки** — по схеме «запрос-ответ» с подписью ключом
+  устройства (ECDSA P-256, SLH-DSA или Ed25519 — тем, что используется у него).
 
 ### О выборе алгоритмов
 
