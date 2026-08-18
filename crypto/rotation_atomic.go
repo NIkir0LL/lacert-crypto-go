@@ -174,6 +174,10 @@ func (s *Session) Iteration() uint64 {
 }
 
 // PendingRotation сообщает, есть ли незавершённая (ожидающая коммита) ротация.
+//
+// Используется планировщиком: начинать новую ротацию, пока предыдущая висит,
+// нельзя, и без этой проверки он раз за разом получал бы отказ, засоряя журнал
+// тревожными сообщениями о неудавшейся ротации там, где всё идёт по плану.
 func (s *Session) PendingRotation() bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
@@ -228,17 +232,6 @@ func RespondToRotationAtomic(session *Session, myKEMPriv *mlkem1024.PrivateKey, 
 		return nil, err
 	}
 	return &RotationAck{Iteration: msg.Iteration}, nil
-}
-
-// HasPendingRotation сообщает, ждёт ли сессия подтверждения начатой ротации.
-//
-// Нужен планировщику: начинать новую ротацию, пока предыдущая висит, нельзя, и
-// без этой проверки он раз за разом получал бы отказ, засоряя журнал
-// тревожными сообщениями о неудавшейся ротации там, где всё идёт по плану.
-func (s *Session) HasPendingRotation() bool {
-	s.mu.Lock()
-	defer s.mu.Unlock()
-	return s.pendingActive
 }
 
 // ApplyRotationAck вызывается инициатором при получении ACK. Проверяет, что
